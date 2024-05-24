@@ -13,6 +13,9 @@ from final_workflow import extract_final_output
 from chroma_db import generate_data_store
 from pathlib import Path
 import json
+__import__('pysqlite3')
+import sys
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 load_dotenv()
 
