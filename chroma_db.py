@@ -6,7 +6,9 @@ from langchain_community.vectorstores import Chroma
 import os
 import chromadb
 import shutil
-
+__import__('pysqlite3')
+import sys
+sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
 
 CHROMA_PATH = "chroma2.0"
 DATA_PATH = "New_DB"
