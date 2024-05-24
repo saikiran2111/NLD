@@ -19,7 +19,7 @@ load_dotenv()
 WORKING_DIR = Path.cwd()
 db_path = WORKING_DIR / 'chroma2.0'
 
-openai_api_key = os.getenv("API_KEY")
+openai_api_key = "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"
 
 
 
