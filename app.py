@@ -22,7 +22,7 @@ load_dotenv()
 WORKING_DIR = Path.cwd()
 db_path = WORKING_DIR / 'chroma2.0'
 
-openai_api_key = "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"
+openai_api_key = os.getenv("OPENAI_API_KEY")
 
 
 
@@ -33,13 +33,16 @@ def load_json(file_path):
 
 
 def retrieve_data(llm, openai_api_key, CHROMA_PATH, user_query):
-    embedding_function = OpenAIEmbeddings(openai_api_key=openai_api_key)
+    embedding_function = OpenAIEmbeddings(api_key=openai_api_key)
+    print("embedding function", embedding_function)
+    # exit()
     db = Chroma(persist_directory=CHROMA_PATH, embedding_function=embedding_function)
 
     retriever = db.as_retriever(
         search_type="similarity",
         search_kwargs={"k": 5},
     )
+    print("retriver",retriever)
 
     message = """
     You will be asked a question about which functions to call to achieve the stated purpose and in what sequence. Return the name of the functions and their descriptions and input directly drawn from the input strictly without using your own intelligence(if no activity found, just return 'No Activity Found' for specified purpose) in the following JSON Format without any further processing :
@@ -72,7 +75,7 @@ def main():
     if st.button("Retrieve Workflow"):
         if user_query:
             with st.spinner("Integrating LLM..."):
-                
+                print("we are here----------------------------------------------------------------------------")
                 CHROMA_PATH = "chroma2.0"
 
                 llm_retrieval = ChatOpenAI(model="gpt-4-1106-preview", api_key=openai_api_key)
