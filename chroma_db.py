@@ -4,14 +4,16 @@ from langchain.schema import Document
 from langchain_openai import OpenAIEmbeddings
 from langchain_community.vectorstores import Chroma
 import os
-import chromadb
 import shutil
-__import__('pysqlite3')
-import sys
-sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+# __import__('pysqlite3')
+# import sys
+# sys.modules['sqlite3'] = sys.modules.pop('pysqlite3')
+
 
 CHROMA_PATH = "chroma2.0"
 DATA_PATH = "New_DB"
+
+openai_api_key = os.getenv("OPENAI_API_KEY")
 
 
 def generate_data_store():
@@ -49,7 +51,7 @@ def save_to_chroma(chunks: list[Document]):
 
     # Create a new DB from the documents.
     db = Chroma.from_documents(
-        chunks, OpenAIEmbeddings(openai_api_key="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"), persist_directory=CHROMA_PATH
+        chunks, OpenAIEmbeddings(openai_api_key=openai_api_key), persist_directory=CHROMA_PATH
     )
     db.persist()
     print(f"Saved {len(chunks)} chunks to {CHROMA_PATH}.")
