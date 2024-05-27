@@ -5,9 +5,11 @@ import openai
 from dotenv import load_dotenv
 load_dotenv()
 
+openai_api_key = os.getenv("OPENAI_API_KEY")
 
 
-client = OpenAI(api_key = "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")
+
+client = OpenAI(api_key = openai_api_key)
 
 
 
@@ -68,15 +70,6 @@ def extract_final_output(json_data):
 
 
 
-# def load_json(file_path):
-#         with open(file_path, 'r') as json_file:
-#             data = json.load(json_file)
-#         return data
 
-
-# if __name__ == "__main__":
-#     file_path = "output.json"
-#     json_data = load_json(file_path)
-#     print(extract_final_output(json_data))
 
     
